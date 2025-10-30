@@ -207,7 +207,7 @@ public class TCA {
         switch (cmdDoPlayer) {
             case 1:
                 limparTela();
-                escrituraAssassino();
+                escrituraArqueiro();
                 break;
             case 2:
                 break;
@@ -217,7 +217,7 @@ public class TCA {
     static void escrituraArqueiro() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("As escrituras dizem:");
-        System.out.println("Aqueiro.");
+        System.out.println("Arqueiro.");
         System.out.println("Focado em ser rapido e letal.");
         System.out.println("Vida: 15.");
         System.out.println("Dano: 2 ~ 8.");
@@ -229,6 +229,22 @@ public class TCA {
         System.out.printf("Abrir o bau e pegar os equipamentos\t[1]\n");
         System.out.printf("Voltar e olhar outro bau.\t\t[2]\n");
         System.out.println("-------------------------------------------------------------------------------------------------");
+
+        receberComando(2);
+
+        switch (cmdDoPlayer) {
+            case 1:
+                // player.vida = 15;
+                // player.dano = 8;
+                // player.defesa = 0;
+                // player.arma[2] = true;
+                // player.classe[2] = true;
+                ctrl = false;
+                break;
+        
+            case 2:
+                break;
+        }
     }
 
     public static void main(String[] args) {
@@ -276,6 +292,7 @@ public class TCA {
                     break;
                 
                 case 3:
+                bauArqueiro();
                     break;
             }
         }
