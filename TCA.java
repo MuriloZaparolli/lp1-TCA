@@ -219,10 +219,10 @@ public class TCA {
         System.out.println("As escrituras dizem:");
         System.out.println("Aqueiro.");
         System.out.println("Focado em ser rapido e letal.");
-        System.out.println("Vida: 20.");
-        System.out.println("Dano: 2 ~ 6.");
-        System.out.println("Defesa: 2.");
-        System.out.println("Arma: adaga dupla - +2 atk, -1 def");
+        System.out.println("Vida: 15.");
+        System.out.println("Dano: 2 ~ 8.");
+        System.out.println("Defesa: 0.");
+        System.out.println("Arma: adaga dupla - +3 atk, -1 def");
         System.out.println("Passiva: esquiva - chance muito baixa de não receber dano.");
         System.out.println("Abilidade: lamina de sange - seu proximo ataque te cura metade do dano causado no inimigo.");
         System.out.printf("\n\n");
