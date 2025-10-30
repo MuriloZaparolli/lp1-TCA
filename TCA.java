@@ -51,7 +51,7 @@ public class TCA {
         System.out.println("Produtor: Murilo de Lima Zaparolli");
         System.out.printf("\n\n");
         System.out.printf("Começo da aventura!\t[1]\n");
-        System.out.printf("Créditos\t\t[2]");
+        System.out.printf("Créditos\t\t[2]\n");
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
