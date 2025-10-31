@@ -5,7 +5,7 @@ public class TCA {
 
     static int cmdDoPlayer;
     static boolean ctrl;
-    //static Personagem player = new Personagem();
+    static Personagem player = new Personagem();
 
     public static void limparTela() {
         for (int i = 0; i < 40; ++i) {
@@ -126,12 +126,12 @@ public class TCA {
 
         switch (cmdDoPlayer) {
             case 1:
-                // player.vida = 25;
-                // player.dano = 5;
-                // player.defesa = 2;
-                // player.arma[0] = true;
-                // player.classe[0] = true;
-                // ctrl = false;
+                player.vida = 25;
+                player.dano = 5;
+                player.defesa = 2;
+                player.arma[0] = true;
+                player.classe[0] = true;
+                ctrl = false;
                 break;
         
             case 2:
@@ -180,11 +180,11 @@ public class TCA {
 
         switch (cmdDoPlayer) {
             case 1:
-                // player.vida = 20;
-                // player.dano = 6;
-                // player.defesa = 2;
-                // player.arma[1] = true;
-                // player.classe[1] = true;
+                player.vida = 20;
+                player.dano = 6;
+                player.defesa = 2;
+                player.arma[1] = true;
+                player.classe[1] = true;
                 ctrl = false;
                 break;
         
@@ -234,11 +234,11 @@ public class TCA {
 
         switch (cmdDoPlayer) {
             case 1:
-                // player.vida = 15;
-                // player.dano = 8;
-                // player.defesa = 0;
-                // player.arma[2] = true;
-                // player.classe[2] = true;
+                player.vida = 15;
+                player.dano = 8;
+                player.defesa = 0;
+                player.arma[2] = true;
+                player.classe[2] = true;
                 ctrl = false;
                 break;
         
@@ -292,7 +292,7 @@ public class TCA {
                     break;
                 
                 case 3:
-                bauArqueiro();
+                    bauArqueiro();
                     break;
             }
         }
