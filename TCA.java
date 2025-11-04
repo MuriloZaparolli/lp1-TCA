@@ -249,6 +249,8 @@ public class TCA {
         chanceItem = rng.nextInt(100);
 
         comandosDoTemplo();
+
+        System.out.printf("%d", chanceItem);
     }
 
     static void comandosDoTemplo() {
@@ -261,7 +263,16 @@ public class TCA {
     static void estatua() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Chegando mais perto, você vê uma placa de madeira com escritas de uma lingua desconhecida.");
-        System.out.println("Estranhamente, essa lingua é legivel para você, revelando o seguinte texto");
+        System.out.println("Estranhamente, essa lingua é legivel para você, revelando o seguinte texto\n");
+        System.out.println("Isso  é estranho, nunca vi o ancião assim.");
+        System.out.println("Talvez seja por causa daquela estranha qeu chegou no templo.");
+        System.out.println("Preciso procurar a chave da sala do ancião, ele conseguiu perde-las,");
+        System.out.println("é até impressionante a capacidade dele de perder elas, talvez ele...");
+        System.out.println("Tenha sido roubado..?\n");
+
+        if (chanceItem > 70) {
+            System.out.println("Alem disso, tem um machado no chão. Você pega ele e o põe na mochila que estava no bau.");
+        }
     }
 
     public static void main(String[] args) {
@@ -316,11 +327,12 @@ public class TCA {
 
         entradaNoTemplo();
 
+        ctrl = true;
         receberComando(3);
 
         switch (cmdDoPlayer) {
             case 1:
-                
+                estatua();
                 break;
         
             default:
