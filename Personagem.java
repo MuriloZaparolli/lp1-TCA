@@ -1,7 +1,17 @@
 public class Personagem {
-    public static int vida;
-    public static int dano;
-    public static int defesa;    
-    public static boolean[] arma = new boolean[3];
-    public static boolean[] classe = new boolean[3];
+    int vida;
+    int dano;
+    int defesa;    
+    boolean[] arma = new boolean[3];
+    boolean[] classe = new boolean[3];
+    
+
+    Personagem(int vida, int dano, int defesa, int numC) {
+        this.vida = vida;
+        this.dano = dano;
+        this.defesa = defesa;
+
+        arma[numC] = true;
+        
+    }
 }

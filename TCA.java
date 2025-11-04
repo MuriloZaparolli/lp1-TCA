@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class TCA {
@@ -5,7 +6,9 @@ public class TCA {
 
     static int cmdDoPlayer;
     static boolean ctrl;
-    static Personagem player = new Personagem();
+    static Personagem player;
+    static Random rng = new Random();
+    static int chanceItem;
 
     public static void limparTela() {
         for (int i = 0; i < 40; ++i) {
@@ -180,12 +183,7 @@ public class TCA {
 
         switch (cmdDoPlayer) {
             case 1:
-                player.vida = 20;
-                player.dano = 6;
-                player.defesa = 2;
-                player.arma[1] = true;
-                player.classe[1] = true;
-                ctrl = false;
+                player = new Personagem(20, 6, 2, 2);
                 break;
         
             case 2:
@@ -247,6 +245,31 @@ public class TCA {
         }
     }
 
+    static void entradaNoTemplo() {
+        limparTela();
+        System.out.println("-------------------------------------------------------------------------------------------------");
+        System.out.println("Você se equipa com os equipamentos do bau e adentra o templo em ruinas.");
+        System.out.println("Parece que esse lugar não é visto a eras, é impressionante as estruturas ainda estarem de pé");
+        System.out.println("Tem alguns pontos que chamam sua atenção.");
+        System.out.printf("\n\n");
+
+        chanceItem = rng.nextInt(100);
+
+        comandosDoTemplo();
+    }
+
+    static void comandosDoTemplo() {
+        System.out.printf("Ver a estatua\t\t\t[1]\n");
+        System.out.printf("Subir a escada\t\t\t[2]\n");
+        System.out.printf("Vasculhar casinha de madeira\t[3]\n");
+        System.out.println("-------------------------------------------------------------------------------------------------");
+    }
+
+    static void estatua() {
+        System.out.println("-------------------------------------------------------------------------------------------------");
+        System.out.println("Chegando mais perto, você vê ");
+    }
+
     public static void main(String[] args) {
         bemVindos();
 
@@ -296,9 +319,21 @@ public class TCA {
                     break;
             }
         }
+
+        entradaNoTemplo();
+
+        receberComando(3);
+
+        switch (cmdDoPlayer) {
+            case 1:
+                
+                break;
+        
+            default:
+                break;
+        }
     }
 }
 
 // javac TCA.java; java TCA
 // javac TCA.java && java TCA
-// ok;
