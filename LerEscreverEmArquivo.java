@@ -16,9 +16,7 @@ public class LerEscreverEmArquivo {
             
             // Grava o conteúdo no arquivo
             writer.write(conteudo);
-            
-            System.out.println("Sucesso: Dados salvos em " + nomeArquivo);
-            
+
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo '" + nomeArquivo + "': " + e.getMessage());
         }

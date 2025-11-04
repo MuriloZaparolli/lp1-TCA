@@ -129,11 +129,7 @@ public class TCA {
 
         switch (cmdDoPlayer) {
             case 1:
-                player.vida = 25;
-                player.dano = 5;
-                player.defesa = 2;
-                player.arma[0] = true;
-                player.classe[0] = true;
+                player = new Personagem(25, 5, 2, 1);
                 ctrl = false;
                 break;
         
@@ -169,7 +165,7 @@ public class TCA {
         System.out.println("Assassino.");
         System.out.println("Focado em ser rapido e resistente.");
         System.out.println("Vida: 20.");
-        System.out.println("Dano: 2 ~ 6.");
+        System.out.println("Dano: 1 ~ 6.");
         System.out.println("Defesa: 2.");
         System.out.println("Arma: adaga dupla - +2 atk, -1 def");
         System.out.println("Passiva: esquiva - chance muito baixa de não receber dano.");
@@ -184,6 +180,7 @@ public class TCA {
         switch (cmdDoPlayer) {
             case 1:
                 player = new Personagem(20, 6, 2, 2);
+                ctrl = false;
                 break;
         
             case 2:
@@ -218,7 +215,7 @@ public class TCA {
         System.out.println("Arqueiro.");
         System.out.println("Focado em ser rapido e letal.");
         System.out.println("Vida: 15.");
-        System.out.println("Dano: 2 ~ 8.");
+        System.out.println("Dano: 1 ~ 8.");
         System.out.println("Defesa: 0.");
         System.out.println("Arma: arco e flecha - +3 atk, -1 def");
         System.out.println("Passiva: esquiva - chance muito baixa de não receber dano.");
@@ -232,11 +229,7 @@ public class TCA {
 
         switch (cmdDoPlayer) {
             case 1:
-                player.vida = 15;
-                player.dano = 8;
-                player.defesa = 0;
-                player.arma[2] = true;
-                player.classe[2] = true;
+                player = new Personagem(15, 8, 0, 3);
                 ctrl = false;
                 break;
         
@@ -267,7 +260,8 @@ public class TCA {
 
     static void estatua() {
         System.out.println("-------------------------------------------------------------------------------------------------");
-        System.out.println("Chegando mais perto, você vê ");
+        System.out.println("Chegando mais perto, você vê uma placa de madeira com escritas de uma lingua desconhecida.");
+        System.out.println("Estranhamente, essa lingua é legivel para você, revelando o seguinte texto");
     }
 
     public static void main(String[] args) {
