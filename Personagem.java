@@ -13,6 +13,6 @@ public class Personagem {
         this.defesa = defesa;
 
         arma[numC] = true;
-        
+        classe[numC] = true;
     }
 }
