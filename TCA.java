@@ -9,6 +9,7 @@ public class TCA {
     static Personagem player;
     static Random rng = new Random();
     static int chanceItem;
+    static int id_mochila = 0;
 
     public static void limparTela() {
         for (int i = 0; i < 40; ++i) {
@@ -249,20 +250,23 @@ public class TCA {
 
         chanceItem = rng.nextInt(100);
 
-        comandosDoTemplo();
-
         System.out.printf("%d", chanceItem);
     }
 
-    static void comandosDoTemplo() {
+    static void comandosDoTemplo(boolean[] eec) {
         String[] n = { "Ver a estatua\t\t\t",
                        "Subir a escada\t\t\t",
                        "Vasculhar casinha de madeira\t" };
 
         int id = 1;
 
+        for (int i = 0; i < eec.length; i++) {
+            eec[i] = true;
+        }
+
         for (int i = 0; i < 3; i++) {
             if (i+1 == cmdDoPlayer) {
+                eec[i] = false;
                 continue;
             }
 
@@ -286,6 +290,7 @@ public class TCA {
 
         if (chanceItem > 70) {
             System.out.println("Alem disso, tem um machado no chão. Você pega ele e o põe na mochila que estava no bau.");
+            player.mochila[id_mochila] = "machado";
         }
     }
 
@@ -296,6 +301,25 @@ public class TCA {
     static void casinha() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Observando a casinha, ela parece trancada");
+
+        if (player.verificarItem("machado")) {
+            System.out.println("Voce pode tentar abrir com um ataque");
+            System.out.println("Deseja tentar?\n");
+            System.out.println("Atacar a porta\t\t[1]");
+            System.out.println("Deixar para la\t\t[2]");
+
+            receberComando(chanceItem);
+
+            switch (cmdDoPlayer) {
+                case 1:
+                    System.out.println("ok");
+                    break;
+            
+                case 2:
+                    System.out.println("ok");
+                    break;
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -354,24 +378,20 @@ public class TCA {
 
         ctrl = true;
 
+        boolean[] eec = new boolean[3];
+
         while (ctrl) {
             receberComando(3);
 
-            switch (cmdDoPlayer) {
-                case 1:
-                    estatua();
-                    break;
-
-                case 2:
-                    escada();
-                    break;
-
-                case 3:
-                    casinha();
-                    break;
+            if (cmdDoPlayer == 1) {
+                estatua();
+            } else if (cmdDoPlayer == 2) {
+                escada();
+            } else if (cmdDoPlayer == 3) {
+                casinha();
             }
 
-            comandosDoTemplo();
+            comandosDoTemplo(eec);
         }
     }
 }
