@@ -6,7 +6,7 @@ public class Personagem {
     boolean[] classe = new boolean[3];
 
     String[] mochila = new String[16];
-    int[] quant_itens = new int[mochila.length];
+    //int[] quant_itens = new int[mochila.length];
 
     Personagem(int vida, int dano, int defesa, int numC) {
         this.vida = vida;
