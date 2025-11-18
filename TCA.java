@@ -86,7 +86,7 @@ public class TCA {
                            " -------   ########## ----    ############              #########           ########          \r\n" + //
                            "--------- ############----  ###############            ###########         ##########         ");
 
-        Thread.sleep(5000);
+        //Thread.sleep(5000);
 
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Você acorda numa floresta, sem saber nem quem é você ou como veio parar nesse lugar.");
@@ -281,22 +281,23 @@ public class TCA {
         System.out.printf("%d", chanceItem);
     }
 
-    static void comandosDoTemplo(int[] eec) {
-        String[] n = { "Ver a estatua\t\t\t",
+    static void comandosDoTemplo(int[] esc_est_cas) {
+        String[] opcoes_do_templo = { "Ver a estatua\t\t\t",
                        "Subir a escada\t\t\t",
                        "Vasculhar casinha de madeira\t" };
 
         int id = 1;
 
         for (int i = 0; i < 3; i++) {
-            if (i+1 == cmdDoPlayer) {
-                eec[i] = 0;
+
+            if (esc_est_cas[i] == cmdDoPlayer) {
+                esc_est_cas[i] = 0;
                 continue;
             } else {
-                eec[i] =  i+1;
+                esc_est_cas[i] = id;
             }
 
-            System.out.printf("%s[%d]\n", n[i], id);
+            System.out.printf("%s[%d]\n", opcoes_do_templo[i], id);
 
             id++;
         }
@@ -317,6 +318,7 @@ public class TCA {
         if (chanceItem > 70) {
             System.out.println("Alem disso, tem um machado no chão. Você pega ele e o põe na mochila que estava no bau.");
             player.mochila[id_mochila] = "machado";
+            id_mochila++;
         }
     }
 
@@ -334,7 +336,7 @@ public class TCA {
             System.out.println("Atacar a porta\t\t[1]");
             System.out.println("Deixar para la\t\t[2]");
 
-            receberComando(chanceItem);
+            receberComando(2);
 
             switch (cmdDoPlayer) {
                 case 1:
@@ -346,6 +348,15 @@ public class TCA {
                     break;
             }
         }
+    }
+
+    static void dentroDaCasinha() {
+        System.out.println("-------------------------------------------------------------------------------------------------");
+        System.out.println("Na casinha tem algumas ferramentas antigas, nada muito utilizavel, mas um kit chama sua atenção");
+        System.out.println("esse kit tem duas bandagens que podem te ajudar a se curar.");
+
+        player.mochila[id_mochila] = "bandagem";
+        id_mochila++;
     }
 
     public static void main(String[] args) throws InterruptedException{
@@ -407,13 +418,14 @@ public class TCA {
         int[] eec = new int[3];
 
         for (int i = 0; i < eec.length; i++) {
-            eec[i] = i+1;
+            eec[i] = 99;
         }
 
         comandosDoTemplo(eec);
 
+        receberComando(3);
+
         while (ctrl) {
-            receberComando(3);
 
             if (cmdDoPlayer == eec[0]) {
                 estatua();
@@ -424,6 +436,8 @@ public class TCA {
             }
 
             comandosDoTemplo(eec);
+
+            receberComando(2);
         }
     }
 }
