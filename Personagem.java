@@ -14,6 +14,10 @@ public class Personagem {
 
         arma[numC] = true;
         classe[numC] = true;
+
+        for (int i = 0; i < mochila.length; i++) {
+            mochila[i] = " ";
+        }
     }
 
     public boolean verificarItem(String item) {
@@ -22,6 +26,7 @@ public class Personagem {
         for (int i = 0; i < mochila.length; i++) {
             if (mochila[i].equals(item)) {
                 tem = true;
+                break;
             }
         }
 

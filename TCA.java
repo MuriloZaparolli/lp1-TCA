@@ -59,7 +59,35 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
-    static void inicio1() {
+    static void inicio1() throws InterruptedException{
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n" + //
+                           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n" + //
+                           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n" + //
+                           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n" + //
+                           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \r\n" + //
+                           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  \r\n" + //
+                           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@::::@@@@@@@@@          @@@     @@@    @@@@@@@@@@@@@@@@@@@@@@@@    \r\n" + //
+                           " @@@@@@@@@@@@@@@@@@@@@@@@:::::::: ####               ###   ##    ###@@@     ####   ####       \r\n" + //
+                           "  @@@@@@@@@@@@@@@@@@@@@@::::::::  ####                ### ###  ######       #########         \r\n" + //
+                           "::::::::::::#####:::####::::::    #####                 #########            ######           \r\n" + //
+                           "::::::::::::####::::####:----      #####                  #####              #####            \r\n" + //
+                           "::::::::::::####:::####:::----     #####                  ####               #####            \r\n" + //
+                           ":::::::::::::####::####::::----     ####                  ###                #####            \r\n" + //
+                           ":::::::::::: #########::::::----   #####                  ###                #####            \r\n" + //
+                           ":::::::::::   ######:::::::::----  ####                   ###                #####            \r\n" + //
+                           ":::::::::     ####::::::::::: ---- ####                   ###                #####            \r\n" + //
+                           "   ---        ####::::::::::   ---####                    ###                #####            \r\n" + //
+                           "   ---        #### :::::::       -####                    ###                 #####           \r\n" + //
+                           "   ----       ####    ---         ####                    ####                 ####           \r\n" + //
+                           "   ----       ####   ----         ####                    ####                #####           \r\n" + //
+                           "   ----       ####   ----         ####                    #####               #####           \r\n" + //
+                           "   ----      ######   ---        ######                   #####              ######           \r\n" + //
+                           "  -----     ########  ----      ########                 #######             ######           \r\n" + //
+                           " -------   ########## ----    ############              #########           ########          \r\n" + //
+                           "--------- ############----  ###############            ###########         ##########         ");
+
+        Thread.sleep(5000);
+
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Você acorda numa floresta, sem saber nem quem é você ou como veio parar nesse lugar.");
         System.out.printf("Você percebe apenas uma trilha um pouco apagada, parece que esse é o unico caminho a seguir.\n\n");
@@ -253,21 +281,19 @@ public class TCA {
         System.out.printf("%d", chanceItem);
     }
 
-    static void comandosDoTemplo(boolean[] eec) {
+    static void comandosDoTemplo(int[] eec) {
         String[] n = { "Ver a estatua\t\t\t",
                        "Subir a escada\t\t\t",
                        "Vasculhar casinha de madeira\t" };
 
         int id = 1;
 
-        for (int i = 0; i < eec.length; i++) {
-            eec[i] = true;
-        }
-
         for (int i = 0; i < 3; i++) {
             if (i+1 == cmdDoPlayer) {
-                eec[i] = false;
+                eec[i] = 0;
                 continue;
+            } else {
+                eec[i] =  i+1;
             }
 
             System.out.printf("%s[%d]\n", n[i], id);
@@ -322,7 +348,7 @@ public class TCA {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
         bemVindos();
 
         receberComando(2);
@@ -378,16 +404,22 @@ public class TCA {
 
         ctrl = true;
 
-        boolean[] eec = new boolean[3];
+        int[] eec = new int[3];
+
+        for (int i = 0; i < eec.length; i++) {
+            eec[i] = i+1;
+        }
+
+        comandosDoTemplo(eec);
 
         while (ctrl) {
             receberComando(3);
 
-            if (cmdDoPlayer == 1) {
+            if (cmdDoPlayer == eec[0]) {
                 estatua();
-            } else if (cmdDoPlayer == 2) {
+            } else if (cmdDoPlayer == eec[1]) {
                 escada();
-            } else if (cmdDoPlayer == 3) {
+            } else if (cmdDoPlayer == eec[2]) {
                 casinha();
             }
 
