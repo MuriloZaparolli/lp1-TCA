@@ -1,26 +1,7 @@
 public class Personagem {
-    // int vida;
-    // int dano;
-    // int defesa;    
-    // boolean[] arma = new boolean[3];
-    // boolean[] classe = new boolean[3];
 
     static String[] mochila = new String[16];
-    //int[] quant_itens = new int[mochila.length];
-
-    // Personagem(int vida, int dano, int defesa, int numC) {
-    //     this.vida = vida;
-    //     this.dano = dano;
-    //     this.defesa = defesa;
-
-    //     arma[numC] = true;
-    //     classe[numC] = true;
-
-    //     for (int i = 0; i < mochila.length; i++) {
-    //         mochila[i] = " ";
-    //     }
-    // }
-
+    
     static {
         for (int i = 0; i < mochila.length; i++) {
             mochila[i] = " ";

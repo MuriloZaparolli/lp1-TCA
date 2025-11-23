@@ -332,36 +332,9 @@ public class TCA {
 
         receberComando(1);
 
-        // ctrl = true;
-
-        // while (ctrl) {
-        //     baus();
-
-        //     receberComando(3);
-
-            
-        //     switch (cmdDoPlayer) {
-        //         case 1:
-        //             bauGuerreiro();
-        //             break;
-
-        //         case 2:
-        //             bauAssassino();
-        //             break;
-
-        //         case 3:
-        //             bauArqueiro();
-        //             break;
-        //     }
-        // }
-
         entradaNoTemplo();
 
         ctrl = true;
-
-        // for (int i = 0; i < pontosDoTemplo.length; i++) {
-        //     pontosDoTemplo[i] = 99;
-        // }
 
         String[] opcoes_do_templo = { "Ver a estatua\t\t\t",
                                       "Subir a escada\t\t\t",
