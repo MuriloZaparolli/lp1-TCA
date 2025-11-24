@@ -173,7 +173,7 @@ public class TCA {
                 System.out.println("Alem disso, tem um machado escondido de baixo do chão de madeira.");
                 player.mochila[id_mochila] = "machado";
                 id_mochila++;
-                newCtrl = true;
+                mochila = true;
             }
 
             System.out.println("Voce pega uma mochila que estava jogada ao lado e coloca o que achou dentro dela.\n\n");
@@ -223,6 +223,8 @@ public class TCA {
 
         int[] pontosQuartoEsq = new int[comandosPortaEsq.length];
 
+        quantMaxCmds = pontosQuartoEsq.length;
+
         while (true) {
             if (cmdDoPlayer == pontosQuartoEsq[0]) {
                 System.out.println(1);
@@ -232,11 +234,17 @@ public class TCA {
                 System.out.println(3);
             } else if (cmdDoPlayer == pontosQuartoEsq[3]) {
                 break;
+            } else if (cmdDoPlayer == m) {
+                mostrarMochila();
+            }
+
+            if (mochila) {
+                quantMaxCmds = pontosQuartoEsq.length;
             }
 
             comandos(pontosQuartoEsq, comandosPortaEsq);
 
-            receberComando(m);
+            receberComando(quantMaxCmds);
         }
 
         
@@ -244,6 +252,12 @@ public class TCA {
 
     static void bauDoQuartoEsq() {
         System.out.println("-------------------------------------------------------------------------------------------------");
+        System.out.println("Vendo o bau de perto, tem um grande triangulo, com quatro encaixes de triangulos menores");
+        System.out.println("Ja tem encaixado um triangulo, faltando três");
+
+        if (player.verificarItem("triangulo.3")) {
+            player.mochila[player.pegarID_item("triangulo.3")] = " ";
+        }
 
     }
 
@@ -258,9 +272,15 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Observando a casinha, ela parece trancada");
 
+        if (!player.verificarItem("triangulo.2")) {
+            System.out.println("Tem um pequeno triangulo grudado na porta, que você guarda contigo");
+
+            player.mochila[id_mochila] = "triangulo.2";
+            id_mochila++;
+        }
+
         if (player.verificarItem("machado")) {
-            System.out.println("Voce pode tentar abrir com um ataque");
-            System.out.println("Deseja tentar?\n");
+            System.out.println("Voce pode tentar abrir a porta com o machadoDeseja tentar?\n");
             System.out.println("Quebrar a porta\t\t[1]");
             System.out.println("Deixar para la\t\t[2]");
             System.out.println("-------------------------------------------------------------------------------------------------");
@@ -303,7 +323,8 @@ public class TCA {
     }
 
     static int m = -1;
-    private static boolean newCtrl = false;
+    private static boolean mochila = false;
+    static int quantMaxCmds;
 
     static void mostrarMochila() {
         System.out.println("Itens da mochila atualmente:\n");
@@ -358,15 +379,13 @@ public class TCA {
 
         int[] pontosDoTemplo = new int[4];
 
-        int quantMaxCmds = pontosDoTemplo.length;
+        quantMaxCmds = pontosDoTemplo.length;
 
         while (ctrl) {
             comandos(pontosDoTemplo, opcoes_do_templo);
 
-            if (newCtrl) {
-                quantMaxCmds++;
-                
-                newCtrl = false;
+            if (mochila) {
+                quantMaxCmds = pontosDoTemplo.length+1;
             }
 
             receberComando(quantMaxCmds);
