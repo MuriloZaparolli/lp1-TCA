@@ -11,6 +11,12 @@ public class TCA {
     static int chanceItem;
     static int id_mochila = 0;
 
+    static {
+        for (int i = 0; i < player.mochila.length; i++) {
+            player.mochila[i] = " ";
+        }
+    }
+
     public static void limparTela() {
         for (int i = 0; i < 40; ++i) {
             System.out.println();
@@ -158,11 +164,19 @@ public class TCA {
         System.out.println("é até impressionante a capacidade dele de perder elas, talvez ele...");
         System.out.println("Tenha sido roubado..?\n");
 
-        if (chanceItem > 70 && player.mochila[0].equals(" ")) {
-            System.out.println("Alem disso, tem um machado no chão. Você pega ele e o põe na mochila que estava no bau.\n\n");
-            player.mochila[id_mochila] = "machado";
+        if (!player.verificarItem("triangulo.1")) {
+            System.out.println("Junto, tem um pequeno triangulo grudado no quadro.");
+            player.mochila[id_mochila] = "triangulo.1";
             id_mochila++;
-            newCtrl = true;
+
+            if (chanceItem > 70 && player.mochila[0].equals(" ")) {
+                System.out.println("Alem disso, tem um machado escondido de baixo do chão de madeira.");
+                player.mochila[id_mochila] = "machado";
+                id_mochila++;
+                newCtrl = true;
+            }
+
+            System.out.println("Voce pega uma mochila que estava jogada ao lado e coloca o que achou dentro dela.\n\n");
         }
     }
 
@@ -204,7 +218,7 @@ public class TCA {
         String[] comandosPortaEsq = {"Ir ao bau\t\t\t",
                                      "Ver o armario\t\t\t",
                                      "Olhar a cama\t\t\t",
-                                     "Retornar\t\t"
+                                     "Retornar\t\t\t"
         };
 
         int[] pontosQuartoEsq = new int[comandosPortaEsq.length];
@@ -247,7 +261,7 @@ public class TCA {
         if (player.verificarItem("machado")) {
             System.out.println("Voce pode tentar abrir com um ataque");
             System.out.println("Deseja tentar?\n");
-            System.out.println("Atacar a porta\t\t[1]");
+            System.out.println("Quebrar a porta\t\t[1]");
             System.out.println("Deixar para la\t\t[2]");
             System.out.println("-------------------------------------------------------------------------------------------------");
 
