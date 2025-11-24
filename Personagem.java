@@ -25,4 +25,16 @@ public class Personagem {
 
         return mochila.length - 1;
     }
+
+    void retirar_item(String item) {
+        int id_item = pegarID_item(item);
+
+        for (int i = 0; i < mochila.length; i++) {
+            if (i == id_item) {
+                mochila[id_item] = mochila[i];
+            } else if (i > id_item) {
+                mochila[i] = mochila[i+1];
+            }
+        }
+    }
 }
