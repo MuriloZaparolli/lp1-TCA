@@ -7,14 +7,16 @@ public class TCA {
     // define as variaveis globais utilizadas
     static int cmdDoPlayer;
     static boolean ctrl;
-
-    // utilizado para usar a classe Personagem
-    static Personagem player = new Personagem();
-
     static Random rng = new Random();
     static int chanceItem;
     static int id_mochila = 0;
     static boolean[] triangulos = new boolean[3];
+    static int cmdMochila = -1;
+    private static boolean mochila = false;
+    static int quantMaxCmds;
+
+    // utilizado para usar a classe Personagem
+    static Personagem player = new Personagem();
 
     // inicializa o vetor da mochila do player como vazia para não ter problemas
     static {
@@ -226,6 +228,7 @@ public class TCA {
             System.out.println("Decer as escadas\t[3]");
             System.out.println("-------------------------------------------------------------------------------------------------");
 
+            // recepção e execução do comando
             receberComando(3);
 
             switch (cmdDoPlayer) {
@@ -264,6 +267,7 @@ public class TCA {
 
         quantMaxCmds = pontosQuartoEsq.length;
 
+        // ciclo para funcionamento da sala
         while (true) {
             if (!player.mochila[0].equals(" ")) {
                 mochila = true;
@@ -282,6 +286,7 @@ public class TCA {
             } else if (cmdDoPlayer == pontosQuartoEsq[1]) {
                 cama();
             } else if (cmdDoPlayer == pontosQuartoEsq[2]) {
+                // finaliza o ciclo
                 break;
             } else if (cmdDoPlayer == cmdMochila) {
                 mostrarMochila();
@@ -297,6 +302,7 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Vendo o bau de perto, tem um grande triangulo, com quatro encaixes de triangulos menores");
 
+        // verificação do contador
         if (contador == 1) {
             System.out.println("Ja tem encaixado um triangulo, faltando três");
         } else if (contador == 2) {
@@ -358,6 +364,8 @@ public class TCA {
     // cama da porta esquerda da area superior
     static void cama() {
         System.out.println("-------------------------------------------------------------------------------------------------");
+
+        // verificação da 3° parte da chave
         if (!player.verificarItem("parte da chave 3")) {
             System.out.println("Vasculhando a cama, você acha uma parte de uma chave");
 
@@ -384,6 +392,7 @@ public class TCA {
 
         quantMaxCmds = pontosQuartoDir.length;
 
+        // ciclo para funcionamento da sala
         while (true) {
             if (!player.mochila[0].equals(" ")) {
                 mochila = true;
@@ -412,6 +421,7 @@ public class TCA {
     // escombros do quarto direito da area superior
     static void escombros() {
         System.out.println("-------------------------------------------------------------------------------------------------");
+        // verificação da 2° parte da chave
         if (!player.verificarItem("parte da chave 2")) {
             System.out.println("Nesses escombros, reluz uma pequena peça de metal, o que parece uma parte de uma chave");
             player.mochila[id_mochila] = "parte da chave 2";
@@ -427,12 +437,14 @@ public class TCA {
     static void estante() {
         System.out.println("-------------------------------------------------------------------------------------------------");
 
+        // verificação do 3° triangulo
         if (!triangulos[2]) {
             System.out.println("Tem um triangulo em cima da estante");
             player.mochila[id_mochila] = "triangulo 3";
             id_mochila++;
             triangulos[2] = true;
             
+            // verifica o rng para uma liberação de itens
             if (chanceItem > 30) {
                 System.out.println("Além de uma bandagem dentro dela");
                 player.mochila[id_mochila] = "bandagem";
@@ -449,6 +461,7 @@ public class TCA {
     static void casinha() {
         System.out.println("-------------------------------------------------------------------------------------------------");
 
+        // verifica o item bandagem
         if (player.verificarItem("bandagem")) {
             System.out.println("A casinha está quebrada.\n\n");
 
@@ -457,6 +470,7 @@ public class TCA {
 
         System.out.println("Observando a casinha, ela parece trancada");
 
+        // verifica o 2° triangulo
         if (!triangulos[1]) {
             System.out.println("Tem um pequeno triangulo grudado na porta, que você guarda contigo");
 
@@ -514,7 +528,7 @@ public class TCA {
         if (player.verificarItem("parte da chave 1") && player.verificarItem("parte da chave 2") && player.verificarItem("parte da chave 3")) {
             System.out.println("O portão se abre, revelando um grande espaço, onde a aventura pode continuar...");
             System.out.println("-------------------------------------------------------------------------------------------------");
-                Thread.sleep(2000);
+            Thread.sleep(2000);
             ctrl = false;
         } else {
             System.out.println("Pelo visto tera que encontrar uma chave para abrir ele e avançar em frente.");
@@ -523,16 +537,12 @@ public class TCA {
         System.out.print("\n");
     }
 
-    // mais inicializações
-    static int cmdMochila = -1;
-    private static boolean mochila = false;
-    static int quantMaxCmds;
-
     // mostra a mochila do jogador
     static void mostrarMochila() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Itens da mochila atualmente:\n");
 
+        // mostra os itens até aparecer uma parte vazia da mochila
         for (int i = 0; true || i < player.mochila.length; i++) {
             if (player.mochila[i].equals(" ")) {
                 break;
