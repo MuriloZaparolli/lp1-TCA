@@ -473,6 +473,7 @@ public class TCA {
 
         if (player.verificarItem("parte da chave 1") && player.verificarItem("parte da chave 2") && player.verificarItem("parte da chave 3")) {
             System.out.println("O portão se abre, revelando um grande espaço, onde a aventura pode continuar...");
+            ctrl = false;
         } else {
             System.out.println("Pelo visto tera que encontrar uma chave para abrir ele e avançar em frente.");
         }
@@ -562,7 +563,7 @@ public class TCA {
                 casinha();
             } else if (cmdDoPlayer == pontosDoTemplo[3]) {
                 portaoDoTemplo();
-                break;
+                Thread.sleep(2000);
             } else if (cmdDoPlayer == m) {
                 mostrarMochila();
             }
