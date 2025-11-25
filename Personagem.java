@@ -29,12 +29,18 @@ public class Personagem {
     void retirar_item(String item) {
         int id_item = pegarID_item(item);
 
-        for (int i = 0; i < mochila.length; i++) {
-            if (i == id_item) {
-                mochila[id_item] = mochila[i];
-            } else if (i > id_item) {
-                mochila[i] = mochila[i+1];
+        mochila[id_item] = " ";
+
+        String aux;
+
+        for (int i = id_item; i < mochila.length - 1; i++) {
+            if (mochila[i + 1] == " ") {
+                break;
             }
+            
+            aux = mochila[i];
+            mochila[i] = mochila[i+1];
+            mochila[i+1] = aux;
         }
     }
 }
