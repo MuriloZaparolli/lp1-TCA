@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -300,7 +301,8 @@ public class TCA {
 
         if (contador >= 4) {
             if (contador == 4) {
-                System.out.println("Encaixando todos os quatro triangulos, o bau se abre, revelando uma carta:");                
+                System.out.println("Encaixando todos os quatro triangulos, o bau se abre, revelando uma carta:");
+                contador++;
             } else {
                 System.out.println("A carta do bau diz:\n");
             }
@@ -467,12 +469,14 @@ public class TCA {
         cmdDoPlayer = 2;
     }
 
-    static void portaoDoTemplo() {
+    static void portaoDoTemplo() throws InterruptedException {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Você vai a frente de um grande portão, ele esta trancado.");
 
         if (player.verificarItem("parte da chave 1") && player.verificarItem("parte da chave 2") && player.verificarItem("parte da chave 3")) {
             System.out.println("O portão se abre, revelando um grande espaço, onde a aventura pode continuar...");
+            System.out.println("-------------------------------------------------------------------------------------------------");
+                Thread.sleep(2000);
             ctrl = false;
         } else {
             System.out.println("Pelo visto tera que encontrar uma chave para abrir ele e avançar em frente.");
@@ -499,6 +503,25 @@ public class TCA {
 
         System.out.println("\n");
     }
+
+    static String fim = " _________________________         __________         ____________                   ____________        __________\r\n" + //
+                        "|                         |       |          |       |            \\                 /            |      |          |\r\n" + //
+                        "|                         |       |          |       |             \\               /             |      |          |\r\n" + //
+                        "|                         |       |          |       |              \\             /              |      |          |\r\n" + //
+                        "|             ____________|       |__________|       |               \\           /               |      |          |\r\n" + //
+                        "|            |                                       |                \\         /                |      |          |\r\n" + //
+                        "|            |                    ____________       |                 \\       /                 |      |          |\r\n" + //
+                        "|            |____________       |            |      |                  \\     /                  |      |          |\r\n" + //
+                        "|                         |      |            |      |                   \\   /                   |      |          |\r\n" + //
+                        "|                         |      |            |      |            |\\      \\ /      /|            |      |          |\r\n" + //
+                        "|                         |      |            |      |            | \\      V      / |            |      |          |\r\n" + //
+                        "|             ____________|      |            |      |            |  \\           /  |            |      |__________|\r\n" + //
+                        "|            |                   |            |      |            |   \\         /   |            |\r\n" + //
+                        "|            |                   |            |      |            |    \\       /    |            |       __________\r\n" + //
+                        "|            |                   |            |      |            |     \\     /     |            |      |          |\r\n" + //
+                        "|            |                   |            |      |            |      \\   /      |            |      |          |\r\n" + //
+                        "|            |                   |            |      |            |       \\ /       |            |      |          |\r\n" + //
+                        "|____________|                   |____________|      |____________|        V        |____________|      |__________|";
 
     public static void main(String[] args) throws InterruptedException{
         bemVindos();
@@ -563,14 +586,13 @@ public class TCA {
                 casinha();
             } else if (cmdDoPlayer == pontosDoTemplo[3]) {
                 portaoDoTemplo();
-                Thread.sleep(2000);
             } else if (cmdDoPlayer == m) {
                 mostrarMochila();
             }
         }
 
         limparTela();
-        System.out.println("Fim!");
+        System.out.println(fim);
     }
 }
 
