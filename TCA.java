@@ -4,19 +4,35 @@ import java.util.Scanner;
 public class TCA {
     final static Scanner SC = new Scanner(System.in);
 
+    // define as variaveis globais utilizadas
     static int cmdDoPlayer;
     static boolean ctrl;
-    static Personagem player = new Personagem();
     static Random rng = new Random();
     static int chanceItem;
     static int id_mochila = 0;
+    static boolean[] triangulos = new boolean[3];
+    static int cmdMochila = -1;
+    private static boolean mochila = false;
+    static int quantMaxCmds;
 
+    // utilizado para usar a classe Personagem
+    static Personagem player = new Personagem();
+
+    // inicializa o vetor da mochila do player como vazia para não ter problemas
     static {
         for (int i = 0; i < player.mochila.length; i++) {
             player.mochila[i] = " ";
         }
     }
 
+    // inicializa o vetor de triangulos
+    static {
+        for (int i = 0; i < triangulos.length; i++) {
+            triangulos[i] = false;
+        }
+    }
+
+    // limpa a tela do usuario
     public static void limparTela() {
         for (int i = 0; i < 40; ++i) {
             System.out.println();
@@ -25,19 +41,27 @@ public class TCA {
         System.out.print("\033\143");
     }
 
+    // Método utilizado para receber o comando do jogador e impossibilitá-lo de colocar comandos não permitidos
     static void receberComando(int max) {
+        // impossibilita a continuação do codigo
         ctrl = true;
 
         do {
-            cmdDoPlayer = SC.nextInt();
+            cmdDoPlayer = SC.nextInt(); // recebe o comando
 
+            //verifica se está dentro do permitido
             if (cmdDoPlayer < 1 || cmdDoPlayer > max) {
+
+                // avisa o usuario que o comando não foi reconhecido
                 System.out.println("-------------------------------------------------------------------------------------------------");
                 System.out.println("Comando não reconhecido");
                 System.out.println("-------------------------------------------------------------------------------------------------");
+
+                // re faz os passos anteriores
                 continue;
             }
 
+            // permite que o codigo prossiga
             ctrl = false;
         } while (ctrl);
 
@@ -46,6 +70,7 @@ public class TCA {
         ctrl = true;
     }
 
+    // metodo de inicialização
     static void bemVindos() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Bem vindos!!");
@@ -56,6 +81,7 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
+    // metodo de creditos
     static void creditos() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Produtor: Murilo de Lima Zaparolli");
@@ -65,6 +91,7 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
+    // 1° metodo utilizado para o inicio do jogo
     static void inicio1() throws InterruptedException{
         System.out.println( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n" + //
                             "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n" + //
@@ -102,6 +129,7 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
+    // 2° metodo utilizado para o inicio do jogo
     static void inicio2() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Você segue a trilha, ainda sem encontrar nada.");
@@ -110,6 +138,7 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
+    // metodo que mostra a entrada do cenario
     static void entradaNoTemplo() {
         
         System.out.println("-------------------------------------------------------------------------------------------------");
@@ -118,22 +147,25 @@ public class TCA {
         System.out.println("Tem alguns pontos que chamam sua atenção.");
         System.out.printf("\n\n");
 
+        // define o rng do jogo a partir daqui
         chanceItem = rng.nextInt(100);
 
         // System.out.printf("%d", chanceItem);
     }
 
-    static void comandos(int[] esc_est_cas_por, String[] opcoes) {
+    // metodo utilizado para mostrar os comandos possiveis agora
+    static void comandos(int[] pontos, String[] opcoes) {
 
         int id = 1;
 
-        for (int i = 0; i < esc_est_cas_por.length; i++) {
+        // faz a verificação dos comandos e printa o que for necessario
+        for (int i = 0; i < pontos.length; i++) {
 
-            if (esc_est_cas_por[i] == cmdDoPlayer) {
-                esc_est_cas_por[i] = 0;
+            if (pontos[i] == cmdDoPlayer) {
+                pontos[i] = 0;
                 continue;
             } else {
-                esc_est_cas_por[i] = id;
+                pontos[i] = id;
             }
 
             System.out.printf("%s[%d]\n", opcoes[i], id);
@@ -141,10 +173,11 @@ public class TCA {
             id++;
         }
 
-        if (cmdDoPlayer == m) {
-            m = 0;
+        // verifica a mochila do jogador
+        if (cmdDoPlayer == cmdMochila) {
+            cmdMochila = 0;
         } else {
-            m = id;
+            cmdMochila = id;
 
             if (!player.mochila[0].equals(" ")) {
                 System.out.printf("Olhar mochila\t\t\t[%d]\n", id);
@@ -154,6 +187,7 @@ public class TCA {
         System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
+    // area da estatua
     static void estatua() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Chegando mais perto, você vê uma placa de madeira com escritas de uma lingua desconhecida.");
@@ -164,6 +198,7 @@ public class TCA {
         System.out.println("é até impressionante a capacidade dele de perder elas, talvez ele...");
         System.out.println("Tenha sido roubado..?");
 
+        // verifica se tem o triangulo
         if (!triangulos[0]) {
             System.out.println("\nJunto, tem um pequeno triangulo grudado no quadro.");
             player.mochila[id_mochila] = "triangulo 1";
@@ -173,6 +208,7 @@ public class TCA {
             System.out.println("Voce pega uma mochila que estava jogada ao lado e coloca o que achou dentro dela.");
         }
 
+        // verifica se tem o machado
         if (chanceItem > 70 && !player.verificarItem("machado")) {
             System.out.println("Alem disso, tem um machado escondido de baixo do chão de madeira.");
             player.mochila[id_mochila] = "machado";
@@ -182,14 +218,7 @@ public class TCA {
         System.out.print("\n\n");
     }
 
-    static boolean[] triangulos = new boolean[3];
-
-    static {
-        for (int i = 0; i < triangulos.length; i++) {
-            triangulos[i] = false;
-        }
-    }
-
+    // metodo de acesso da area superior
     static void escada() {
         while (true) {
             System.out.println("-------------------------------------------------------------------------------------------------");
@@ -199,6 +228,7 @@ public class TCA {
             System.out.println("Decer as escadas\t[3]");
             System.out.println("-------------------------------------------------------------------------------------------------");
 
+            // recepção e execução do comando
             receberComando(3);
 
             switch (cmdDoPlayer) {
@@ -222,6 +252,7 @@ public class TCA {
         }
     }
 
+    // sala esqueda da area superior
     static void portaEsquerda() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Voce abre a porta, dentro tem tres pontos de interesse\n\n");
@@ -236,6 +267,7 @@ public class TCA {
 
         quantMaxCmds = pontosQuartoEsq.length;
 
+        // ciclo para funcionamento da sala
         while (true) {
             if (!player.mochila[0].equals(" ")) {
                 mochila = true;
@@ -254,21 +286,23 @@ public class TCA {
             } else if (cmdDoPlayer == pontosQuartoEsq[1]) {
                 cama();
             } else if (cmdDoPlayer == pontosQuartoEsq[2]) {
+                // finaliza o ciclo
                 break;
-            } else if (cmdDoPlayer == m) {
+            } else if (cmdDoPlayer == cmdMochila) {
                 mostrarMochila();
             }
         }
-
-        
     }
 
+    // define o contador de triangulos
     static int contador = 1;
 
+    // bau da porta esquerda da area superior
     static void bauDoQuartoEsq() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Vendo o bau de perto, tem um grande triangulo, com quatro encaixes de triangulos menores");
 
+        // verificação do contador
         if (contador == 1) {
             System.out.println("Ja tem encaixado um triangulo, faltando três");
         } else if (contador == 2) {
@@ -277,6 +311,7 @@ public class TCA {
             System.out.println("Três triangulos foram encaixados");
         }
 
+        // verificações dos triangulos
         if (player.verificarItem("triangulo 3")) {
             System.out.println("Você coloca triangulo da ponta inferior esquerdo");
             player.retirar_item("triangulo 3");
@@ -298,6 +333,7 @@ public class TCA {
 
         System.out.print("\n");
 
+        // verificação para abertura do bau
         if (contador >= 4) {
             if (contador == 4) {
                 System.out.println("Encaixando todos os quatro triangulos, o bau se abre, revelando uma carta:");
@@ -325,8 +361,11 @@ public class TCA {
         System.out.print("\n\n");
     }
 
+    // cama da porta esquerda da area superior
     static void cama() {
         System.out.println("-------------------------------------------------------------------------------------------------");
+
+        // verificação da 3° parte da chave
         if (!player.verificarItem("parte da chave 3")) {
             System.out.println("Vasculhando a cama, você acha uma parte de uma chave");
 
@@ -339,6 +378,7 @@ public class TCA {
         System.out.print("\n");
     }
 
+    // porta direita da area superior
     static void portaDireita() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Entrando no quarto, há dois pontos de interesse:\n");
@@ -352,6 +392,7 @@ public class TCA {
 
         quantMaxCmds = pontosQuartoDir.length;
 
+        // ciclo para funcionamento da sala
         while (true) {
             if (!player.mochila[0].equals(" ")) {
                 mochila = true;
@@ -371,14 +412,16 @@ public class TCA {
                 estante();
             } else if (cmdDoPlayer == pontosQuartoDir[2]) {
                 break;
-            } else if (cmdDoPlayer == m) {
+            } else if (cmdDoPlayer == cmdMochila) {
                 mostrarMochila();
             }
         }
     }
 
+    // escombros do quarto direito da area superior
     static void escombros() {
         System.out.println("-------------------------------------------------------------------------------------------------");
+        // verificação da 2° parte da chave
         if (!player.verificarItem("parte da chave 2")) {
             System.out.println("Nesses escombros, reluz uma pequena peça de metal, o que parece uma parte de uma chave");
             player.mochila[id_mochila] = "parte da chave 2";
@@ -390,15 +433,18 @@ public class TCA {
         System.out.print("\n");
     }
 
+    // estante do quarto direito da area superior
     static void estante() {
         System.out.println("-------------------------------------------------------------------------------------------------");
 
+        // verificação do 3° triangulo
         if (!triangulos[2]) {
             System.out.println("Tem um triangulo em cima da estante");
             player.mochila[id_mochila] = "triangulo 3";
             id_mochila++;
             triangulos[2] = true;
             
+            // verifica o rng para uma liberação de itens
             if (chanceItem > 30) {
                 System.out.println("Além de uma bandagem dentro dela");
                 player.mochila[id_mochila] = "bandagem";
@@ -411,9 +457,11 @@ public class TCA {
         System.out.print("\n");
     }
 
+    // casinha de madeira da area inferior
     static void casinha() {
         System.out.println("-------------------------------------------------------------------------------------------------");
 
+        // verifica o item bandagem
         if (player.verificarItem("bandagem")) {
             System.out.println("A casinha está quebrada.\n\n");
 
@@ -422,6 +470,7 @@ public class TCA {
 
         System.out.println("Observando a casinha, ela parece trancada");
 
+        // verifica o 2° triangulo
         if (!triangulos[1]) {
             System.out.println("Tem um pequeno triangulo grudado na porta, que você guarda contigo");
 
@@ -430,6 +479,7 @@ public class TCA {
             triangulos[1] = true;
         }
 
+        //verifica se tem o machado para acessar itens
         if (player.verificarItem("machado")) {
             System.out.println("Voce pode tentar abrir a porta com o machadoDeseja tentar?\n");
             System.out.println("Quebrar a porta\t\t[1]");
@@ -455,6 +505,7 @@ public class TCA {
         System.out.println();
     }
 
+    // ativado se a verificação do machado for bem sucedida
     static void dentroDaCasinha() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Na casinha tem algumas ferramentas antigas, nada muito utilizavel, mas um kit chama sua atenção");
@@ -468,14 +519,16 @@ public class TCA {
         cmdDoPlayer = 2;
     }
 
+    // portao para o final do jogo
     static void portaoDoTemplo() throws InterruptedException {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Você vai a frente de um grande portão, ele esta trancado.");
 
+        // verifica se o jogador tem a chave
         if (player.verificarItem("parte da chave 1") && player.verificarItem("parte da chave 2") && player.verificarItem("parte da chave 3")) {
             System.out.println("O portão se abre, revelando um grande espaço, onde a aventura pode continuar...");
             System.out.println("-------------------------------------------------------------------------------------------------");
-                Thread.sleep(2000);
+            Thread.sleep(2000);
             ctrl = false;
         } else {
             System.out.println("Pelo visto tera que encontrar uma chave para abrir ele e avançar em frente.");
@@ -484,15 +537,13 @@ public class TCA {
         System.out.print("\n");
     }
 
-    static int m = -1;
-    private static boolean mochila = false;
-    static int quantMaxCmds;
-
+    // mostra a mochila do jogador
     static void mostrarMochila() {
         System.out.println("-------------------------------------------------------------------------------------------------");
         System.out.println("Itens da mochila atualmente:\n");
 
-        for (int i = 0; true || i < player.mochila.length; i++) {
+        // mostra os itens até aparecer uma parte vazia da mochila
+        for (int i = 0; i < player.mochila.length; i++) {
             if (player.mochila[i].equals(" ")) {
                 break;
             }
@@ -503,6 +554,7 @@ public class TCA {
         System.out.println("\n");
     }
 
+    // arte de fim
     static String fim = " _________________________         __________         ____________                   ____________        __________\r\n" + //
                         "|                         |       |          |       |            \\                 /            |      |          |\r\n" + //
                         "|                         |       |          |       |             \\               /             |      |          |\r\n" + //
@@ -522,6 +574,7 @@ public class TCA {
                         "|            |                   |            |      |            |       \\ /       |            |      |          |\r\n" + //
                         "|____________|                   |____________|      |____________|        V        |____________|      |__________|";
 
+    // utilização de todos os metodos
     public static void main(String[] args) throws InterruptedException{
         bemVindos();
 
@@ -585,7 +638,7 @@ public class TCA {
                 casinha();
             } else if (cmdDoPlayer == pontosDoTemplo[3]) {
                 portaoDoTemplo();
-            } else if (cmdDoPlayer == m) {
+            } else if (cmdDoPlayer == cmdMochila) {
                 mostrarMochila();
             }
         }
