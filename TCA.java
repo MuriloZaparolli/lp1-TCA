@@ -5,7 +5,6 @@ public class TCA {
     final static Scanner SC = new Scanner(System.in);
 
     // define as variaveis globais utilizadas
-    // define as variaveis globais utilizadas
     static int cmdDoPlayer;
     static boolean ctrl;
     static Random rng = new Random();
@@ -161,6 +160,7 @@ public class TCA {
 
             if (pontos[i] == cmdDoPlayer) {
                 pontos[i] = 0;
+                continue;
             } else {
                 pontos[i] = id;
             }
