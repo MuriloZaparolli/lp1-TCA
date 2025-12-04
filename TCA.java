@@ -492,7 +492,7 @@ public class TCA {
                     break;
             
                 case 2:
-                    System.out.println("Ok\n");
+                    System.out.println("Você retorna\n");
                     break;
             }
 
